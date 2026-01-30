@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarthak Ghimire | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+        
+        body {
+            background: linear-gradient(-45deg, #1a0033, #0d1b2a, #1a0033, #0d1b2a);
+            background-size: 400% 400%;
+            color:#fff;
+            scroll-behavior:smooth;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #ff006e, #00d4ff, #ff006e, #00d4ff);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -2;
+            opacity: 0.1;
+        }
+        
+        @keyframes gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,212,255,0.8) 0%, rgba(0,212,255,0) 70%);
+            border-radius: 50%;
+        }
+        
+        a {text-decoration:none;color:inherit;}
+        
+        section {
+            padding:100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1,h2,h3{
+            margin-bottom:20px;
+            background: linear-gradient(135deg, #00d4ff, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        /* Hero */
+        #hero {
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            text-align:center;
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.9) 0%, rgba(26, 0, 51, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {transform: translate(-50%, -50%) scale(1);}
+            50% {transform: translate(-50%, -50%) scale(1.2);}
+        }
+        
+        #hero h1 {
+            font-size:3.5rem;
+            color:#00d4ff;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+        
+        #hero p {
+            font-size:1.3rem;
+            color:#ccc;
+            margin-top:10px;
+            animation: fadeInUp 1.2s ease-out;
+            background: linear-gradient(135deg, #00d4ff, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        #hero a {
+            margin-top:30px;
+            padding:15px 40px;
+            background: linear-gradient(135deg, #ff6f00, #ff006e);
+            color:#fff;
+            border-radius:50px;
+            transition: 0.4s;
+            font-weight: 600;
+            border: 2px solid transparent;
+            animation: fadeInUp 1.4s ease-out;
+            box-shadow: 0 10px 30px rgba(255, 111, 0, 0.3);
+        }
+        
+        #hero a:hover{
+            background: linear-gradient(135deg, #00d4ff, #00a8cc);
+            color:#fff;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* About */
+        #about {background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(26, 0, 51, 0.95));}
+        
+        #about p {
+            max-width:800px;
+            margin:20px auto;
+            font-size:1.1rem;
+            line-height:1.8;
+            color: #ddd;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Skills */
+        #skills {background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(26, 0, 51, 0.95));}
+        
+        .skills-container {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            gap:25px;
+        }
+        
+        .skill {
+            background: linear-gradient(135deg, rgba(255, 111, 0, 0.1), rgba(0, 212, 255, 0.1));
+            padding:25px;
+            border-radius:15px;
+            min-width:200px;
+            text-align:center;
+            transition: 0.4s;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            cursor: pointer;
+            animation: fadeInUp 0.8s ease-out;
+            backdrop-filter: blur(10px);
+        }
+        
+        .skill:hover{
+            background: linear-gradient(135deg, rgba(255, 111, 0, 0.3), rgba(0, 212, 255, 0.3));
+            border-color: #00d4ff;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Experience */
+        #experience {background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(26, 0, 51, 0.95));}
+        
+        .exp-item {
+            background: linear-gradient(135deg, rgba(255, 111, 0, 0.1), rgba(255, 0, 110, 0.1));
+            padding:25px;
+            margin:20px auto;
+            border-radius:15px;
+            max-width:800px;
+            transition: 0.4s;
+            border-left: 4px solid #ff6f00;
+            animation: fadeInUp 0.8s ease-out;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .exp-logo {
+            font-size: 3rem;
+            min-width: 80px;
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .exp-content {
+            flex: 1;
+        }
+        
+        .exp-content h3 {
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #00d4ff, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .exp-role {
+            color: #ff6f00;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .exp-desc {
+            color: #bbb;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        @keyframes float {
+            0%, 100% {transform: translateY(0px);}
+            50% {transform: translateY(-10px);}
+        }
+        
+        .exp-item:hover{
+            background: linear-gradient(135deg, rgba(255, 111, 0, 0.2), rgba(255, 0, 110, 0.2));
+            border-left-color: #00d4ff;
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(255, 111, 0, 0.3);
+        }
+        
+        /* Portfolio */
+        #portfolio {background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(26, 0, 51, 0.95));}
+        
+        .portfolio-container {
+            display:flex;
+            flex-wrap:wrap;
+            gap:25px;
+            justify-content:center;
+        }
+        
+        .portfolio-item {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 111, 0, 0.1));
+            border-radius:15px;
+            overflow:hidden;
+            min-width:250px;
+            max-width:300px;
+            transition: 0.4s;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .portfolio-content {
+            text-align: center;
+        }
+        
+        .portfolio-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #00d4ff, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .portfolio-content p {
+            color: #bbb;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .portfolio-item:hover{
+            transform:scale(1.08);
+            border-color: #ff006e;
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.4);
+        }
+        
+        .portfolio-item img, .portfolio-item video{
+            width:100%;
+            height:auto;
+            display:block;
+        }
+        
+        /* Contact */
+        #contact {
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(26, 0, 51, 0.95));
+            text-align:center;
+        }
+        
+        #contact a{
+            display:inline-block;
+            margin:15px;
+            padding:15px 30px;
+            background: linear-gradient(135deg, #00d4ff, #00a8cc);
+            color:#111;
+            border-radius:50px;
+            transition: 0.4s;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        #contact a:hover{
+            background: linear-gradient(135deg, #ff6f00, #ff006e);
+            color:#fff;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 111, 0, 0.5);
+        }
+        
+        /* Footer */
+        footer {
+            text-align:center;
+            padding:20px;
+            background: linear-gradient(135deg, #0d1b2a, #1a0033);
+            color:#777;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00d4ff, #ff006e);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff006e, #00d4ff);
+        }
+        
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.85), rgba(26, 0, 51, 0.85));
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            transition: top 0.4s ease-out;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        #navbar.show {
+            top: 0;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        
+        .navbar-contact {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #ff6f00, #ff006e);
+            color: #fff;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 20px rgba(255, 111, 0, 0.3);
+        }
+        
+        .navbar-contact:hover {
+            background: linear-gradient(135deg, #00d4ff, #00a8cc);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+        }
+        
+        /* Wave Canvas */
+        #waveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        /* Responsive */
+        @media(max-width:768px){
+            #hero h1{font-size:2.2rem;}
+            h2 {font-size: 2rem;}
+            .skills-container{flex-direction:column;align-items:center;}
+            .portfolio-container{flex-direction:column;align-items:center;}
+            section {padding: 60px 20px;}
+            #navbar {
+                padding: 0 20px;
+                height: 70px;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .navbar-contact {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Wave Canvas for Motion Effect -->
+<canvas id="waveCanvas"></canvas>
+
+<!-- Navigation Bar -->
+<nav id="navbar">
+    <div class="navbar-brand">Sarthak Ghimire</div>
+    <a href="#contact" class="navbar-contact">Contact Me</a>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+    <h1>Sarthak Ghimire</h1>
+    <p>Digital Creator | Video Producer | Social Media Manager </p>
+    <a href="#contact">Contact Me</a>
+</section>
+<!-- About -->
+<section id="about">
+    <h2>About Me</h2>
+    <p>I am a versatile digital creator and tech-savvy professional with hands-on experience in video production, social media management, and brand building. I specialize in creating engaging content, short video ads, and managing digital platforms for growth and visibility. My expertise bridges creative storytelling with practical tech skills, making me a dynamic contributor to any team or project.</p>
+</section>
+<!-- Skills -->
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+        <div class="skill">Website Development</div>
+        <div class="skill">Video Production & Editing</div>
+        <div class="skill">Social Media Management</div>
+        <div class="skill"> Marketing</div>
+        <div class="skill">Content Strategy</div>
+    </div>
+</section>
+<!-- Experience -->
+<section id="experience">
+    <h2>Experience</h2>
+    <div class="exp-item">
+        <div class="exp-logo">⚡</div>
+        <div class="exp-content">
+            <h3>Zenex Eve Scooter</h3>
+            <p class="exp-role">Social Media Management</p>
+            <p class="exp-desc">Managed social media channels, created engaging content, and built community presence for electric scooter brand. Increased engagement and follower growth through strategic content planning and execution.</p>
+        </div>
+    </div>
+    <div class="exp-item">
+        <div class="exp-logo">🏏</div>
+        <div class="exp-content">
+            <h3>Pokhara Cricket</h3>
+            <p class="exp-role">Social Media Management</p>
+            <p class="exp-desc">Developed social media strategy, created event promotions, and managed daily posts for cricket events. Enhanced audience reach and engagement through creative visual content and timely updates.</p>
+        </div>
+    </div>
+    <div class="exp-item">
+        <div class="exp-logo">🎬</div>
+        <div class="exp-content">
+            <h3>Rebuzz & Mindcraft</h3>
+            <p class="exp-role">Video Production & Content Creation</p>
+            <p class="exp-desc">Produced high-quality video content, managed editing workflows, and created engaging multimedia assets. Delivered compelling visual stories that drove brand awareness and audience engagement.</p>
+        </div>
+    </div>
+    <div class="exp-item">
+        <div class="exp-logo">👟</div>
+        <div class="exp-content">
+            <h3>Damkicks</h3>
+            <p class="exp-role">Founder </p>
+            <p class="exp-desc">Founded and built the Damkicks brand from scratch. Managed all aspects including branding, marketing, social media, and business strategy. Established brand identity and created sustainable growth through innovative marketing campaigns.</p>
+        </div>
+    </div>
+</section>
+<!-- Portfolio -->
+<section id="portfolio">
+    <h2>My Work & Projects</h2>
+    <p style="text-align: center; color: #ccc; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">I create compelling visual content and brand experiences that drive engagement and growth. From social media strategies to video production, I deliver results that matter.</p>
+    <div class="portfolio-container">
+        <div class="portfolio-item">
+            <div class="portfolio-content">
+                <h3>📱 Social Media Campaigns</h3>
+                <p>Strategic content creation and community management across multiple platforms. Building engaged audiences and driving brand visibility.</p>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <div class="portfolio-content">
+                <h3>🎥 Video Production</h3>
+                <p>High-quality video content from concept to final cut. Creating engaging visual stories that resonate with target audiences.</p>
+            </div>
+        </div>
+
+    
+    </div>
+</section>
+<!-- Contact -->
+<section id="contact">
+    <h2>Contact Me</h2>
+    <a href="mailto:youremail@example.com">Email</a>
+    <a href="https://instagram.com/yourprofile" target="_blank">Instagram</a>
+    <a href="https://www.tiktok.com/@yourprofile" target="_blank">TikTok</a>
+    <a href="https://youtube.com/yourchannel" target="_blank">YouTube</a>
+</section>
+<!-- Footer -->
+<footer>
+    &copy; 2026 Sarthak Ghimire. All Rights Reserved.
+</footer>
+
+<script>
+    let lastScrollY = 0;
+    const navbar = document.getElementById('navbar');
+    
+    // Navbar Show/Hide on Scroll
+    window.addEventListener('scroll', () => {
+        lastScrollY = window.scrollY;
+        
+        if (lastScrollY > 100) {
+            navbar.classList.add('show');
+        } else {
+            navbar.classList.remove('show');
+        }
+    });
+    
+    // Wave Motion Effect on Cursor Move
+    const canvas = document.getElementById('waveCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    let waves = [];
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    class Wave {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.radius = 0;
+            this.maxRadius = 150;
+            this.opacity = 0.8;
+            this.expansion = 3;
+        }
+        
+        update() {
+            this.radius += this.expansion;
+            this.opacity -= 0.008;
+        }
+        
+        draw() {
+            ctx.strokeStyle = `rgba(0, 212, 255, ${this.opacity})`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+        
+        isDead() {
+            return this.opacity <= 0 || this.radius >= this.maxRadius;
+        }
+    }
+    
+    // Create waves on mouse move
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Create wave every 50px movement
+        if (Math.random() > 0.8) {
+            waves.push(new Wave(mouseX, mouseY));
+        }
+    });
+    
+    // Create waves on touch move
+    document.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+            
+            if (Math.random() > 0.8) {
+                waves.push(new Wave(mouseX, mouseY));
+            }
+        }
+    });
+    
+    // Animation loop for waves
+    function animateWaves() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = waves.length - 1; i >= 0; i--) {
+            waves[i].update();
+            waves[i].draw();
+            
+            if (waves[i].isDead()) {
+                waves.splice(i, 1);
+            }
+        }
+        
+        requestAnimationFrame(animateWaves);
+    }
+    
+    animateWaves();
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+    
+    // Create floating particles
+    function createParticles() {
+        const particleCount = 50;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 100 + 50;
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const duration = Math.random() * 20 + 20;
+            const delay = Math.random() * 5;
+            
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+            
+            document.body.appendChild(particle);
+        }
+    }
+    
+    // Float animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes float {
+            0% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Initialize particles when page loads
+    document.addEventListener('DOMContentLoaded', createParticles);
+    
+    // Smooth scroll offset for fixed headers
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({behavior: 'smooth'});
+            }
+        });
+    });
+    
+    // Observe elements for animation on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = '0.8';
+        section.style.transform = 'translateY(20px)';
+        observer.observe(section);
+    });
+</script>
+</body>
+</html>
