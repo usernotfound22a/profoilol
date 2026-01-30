@@ -498,6 +498,23 @@
             pointer-events: none;
             z-index: 999;
         }
+
+        /* Smoke Canvas (pointer-drag smoke effect) */
+        #smokeCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+            mix-blend-mode: screen; /* lighter look */
+        }
+
+        /* Respect user preference for reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            #smokeCanvas { display: none !important; }
+        }
         
         /* Responsive */
         @media(max-width:768px){
@@ -523,6 +540,7 @@
 <body>
 <!-- Wave Canvas for Motion Effect -->
 <canvas id="waveCanvas"></canvas>
+<canvas id="smokeCanvas"></canvas>
 
 <!-- Navigation Bar -->
 <nav id="navbar">
@@ -744,7 +762,107 @@
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        // also resize smoke canvas
+        if (typeof resizeSmoke === 'function') resizeSmoke();
     });
+    
+    // Smoke canvas: pointer-driven smoke effect
+    (function(){
+      const smokeCanvas = document.getElementById('smokeCanvas');
+      const sctx = smokeCanvas ? smokeCanvas.getContext('2d') : null;
+      function resizeSmoke(){ if(!smokeCanvas) return; smokeCanvas.width = window.innerWidth; smokeCanvas.height = window.innerHeight; }
+      resizeSmoke();
+
+      if (!sctx) return;
+
+      const smokes = [];
+      let isDragging = false;
+      let lastSmokeTime = 0;
+      const SMOKE_LIMIT = window.innerWidth <= 768 ? 60 : 120; // fewer on mobile
+      const SMOKE_THROTTLE = window.innerWidth <= 768 ? 80 : 32; // ms
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { smokeCanvas.style.display = 'none'; return; }
+
+      function spawnSmoke(x,y){
+        if (smokes.length > SMOKE_LIMIT) smokes.shift();
+        const baseSize = Math.random() * 36 + 28;
+        smokes.push({
+          x, y,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: - (Math.random() * 0.6 + 0.6),
+          size: baseSize,
+          growth: Math.random() * 0.6 + 0.2,
+          life: 0,
+          ttl: 1600 + Math.random() * 1200,
+          alpha: 0.9 * (Math.random() * 0.6 + 0.4),
+          rot: (Math.random() - 0.5) * 0.6
+        });
+      }
+
+      function animateSmoke(){
+        sctx.clearRect(0,0,smokeCanvas.width, smokeCanvas.height);
+        if (smokes.length === 0) { requestAnimationFrame(animateSmoke); return; }
+
+        const accent = getComputedStyle(document.documentElement).getPropertyValue('--hero-accent1-rgb').trim() || '0,212,255';
+
+        for (let i = smokes.length - 1; i >= 0; i--) {
+          const p = smokes[i];
+          p.life += 16;
+          const t = Math.min(1, p.life / p.ttl);
+          if (t >= 1) { smokes.splice(i, 1); continue; }
+          p.x += p.vx;
+          p.y += p.vy - 0.15 * (1 - t);
+          p.size += p.growth;
+          const alpha = p.alpha * (1 - t);
+
+          // radial gradient smoke
+          const grd = sctx.createRadialGradient(p.x, p.y, Math.max(1, p.size*0.12), p.x, p.y, Math.max(1, p.size));
+          grd.addColorStop(0, `rgba(255,255,255,${0.08 * (1 - t)})`);
+          grd.addColorStop(0.2, `rgba(${accent},${0.12 * (1 - t)})`);
+          grd.addColorStop(1, `rgba(10,10,10,0)`);
+
+          sctx.save();
+          sctx.globalCompositeOperation = 'lighter';
+          sctx.globalAlpha = alpha;
+          sctx.filter = 'blur(12px)';
+          sctx.fillStyle = grd;
+          sctx.beginPath();
+          sctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          sctx.fill();
+          sctx.restore();
+        }
+        requestAnimationFrame(animateSmoke);
+      }
+
+      // Throttled spawn while dragging using pointer events
+      document.addEventListener('pointerdown', (e) => {
+        if (e.buttons !== undefined && e.buttons !== 1) return; // only left button
+        isDragging = true;
+        spawnSmoke(e.clientX, e.clientY);
+        lastSmokeTime = performance.now();
+      });
+
+      document.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const now = performance.now();
+        if (now - lastSmokeTime > SMOKE_THROTTLE) {
+          spawnSmoke(e.clientX, e.clientY);
+          lastSmokeTime = now;
+        }
+      });
+
+      function stopDrag(){ isDragging = false; }
+      document.addEventListener('pointerup', stopDrag);
+      document.addEventListener('pointercancel', stopDrag);
+
+      // touch fallback: pointer events cover touch, but ensure capture on touchstart
+      document.addEventListener('touchstart', (e) => { if (e.touches && e.touches[0]) spawnSmoke(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
+      document.addEventListener('touchmove', (e) => { if (e.touches && e.touches[0]) { if (performance.now() - lastSmokeTime > SMOKE_THROTTLE) { spawnSmoke(e.touches[0].clientX, e.touches[0].clientY); lastSmokeTime = performance.now(); } } }, {passive:true});
+
+      // Start loop
+      requestAnimationFrame(animateSmoke);
+    })();
     
     // Create floating particles
     function createParticles() {
