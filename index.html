@@ -378,11 +378,35 @@
         .video-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
         .video-modal.open{display:flex}
         .video-modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.75)}
-        .video-modal-content{position:relative;max-width:1000px;width:100%;background:linear-gradient(135deg, rgba(13,27,42,0.95), rgba(26,0,51,0.95));border-radius:12px;overflow:hidden;padding:20px;border:1px solid rgba(0,212,255,0.08);box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+        .video-modal-content{position:relative;max-width:1000px;width:100%;background:linear-gradient(135deg, rgba(13,27,42,0.95), rgba(26,0,51,0.95));border-radius:12px;overflow:hidden;padding:20px;border:1px solid rgba(0,212,255,0.08);box-shadow:0 30px 80px rgba(0,0,0,0.6);transform:scale(0.96);opacity:0;transition:transform 360ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease}
+        .video-modal.open .video-modal-content{transform:scale(1);opacity:1}
         .video-modal-close{position:absolute;top:10px;right:10px;background:transparent;border:0;color:#fff;font-size:2rem;line-height:1;cursor:pointer}
         .video-wrapper{width:100%;height:auto}
         .video-wrapper iframe{width:100%;height:480px;border:0;border-radius:8px}
         .video-wrapper video{width:100%;height:auto;border-radius:8px}
+
+        /* Clients & Work (Cinematic) */
+        #clients-work{background:#07070a;color:#e6eef6;padding:80px 20px;border-top:1px solid rgba(255,255,255,0.02)}
+        #clients-work .container{max-width:1200px;margin:0 auto}
+        #clients-work h2{letter-spacing:2px;font-weight:800;margin-bottom:8px;text-transform:uppercase}
+        #clients-work p.lead{color:rgba(230,238,246,0.75);margin-bottom:28px}
+        .clients-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+        .client-card{position:relative;overflow:hidden;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform 320ms cubic-bezier(.2,.9,.2,1),box-shadow 320ms}
+        .client-thumb{display:block;width:100%;height:180px;object-fit:cover;vertical-align:middle;transition:transform 400ms}
+        .client-card:hover .client-thumb{transform:scale(1.06)}
+        .client-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.45));opacity:0;transition:opacity 220ms}
+        .client-card:hover .client-overlay{opacity:1}
+        .play-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:999px;background:linear-gradient(135deg,#ff6f00,#ff006e);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(255,111,0,0.15);transition:transform 240ms}
+        .client-card:hover .play-btn{transform:translate(-50%,-50%) scale(1.06)}
+        .play-btn svg{width:24px;height:24px;fill:#0b0b0b}
+        .client-meta{padding:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));}
+        .client-title{font-weight:700;margin:0 0 6px}
+        .client-desc{margin:0;color:rgba(230,238,246,0.75);font-size:0.94rem;line-height:1.4}
+        .client-card:hover{transform:translateY(-8px);box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 6px 20px rgba(255,111,0,0.06)}
+        .upload-card{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:28px;border:2px dashed rgba(255,255,255,0.04);color:rgba(230,238,246,0.6)}
+        .upload-card small{color:rgba(230,238,246,0.5);margin-top:10px}
+        @media (max-width:900px){.clients-grid{grid-template-columns:repeat(2,1fr)}.client-thumb{height:160px}}
+        @media (max-width:600px){.clients-grid{grid-template-columns:1fr}.client-thumb{height:140px}}
         
         /* small watch badge */
         .portfolio-item{position:relative}
@@ -645,28 +669,64 @@
         </div>
     </div>
 </section>
-<!-- Portfolio -->
-<section id="portfolio">
-    <h2>My Work & Projects</h2>
-    <p style="text-align: center; color: #ccc; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem;">I create compelling visual content and brand experiences that drive engagement and growth. From social media strategies to video production, I deliver results that matter.</p>
-    <div class="portfolio-container">
-        <div class="portfolio-item" data-video="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-            <div class="portfolio-content">
-                <h3>📱 Social Media Campaigns</h3>
-                <p>Strategic content creation and community management across multiple platforms. Building engaged audiences and driving brand visibility.</p>
-            </div>
-            <div class="watch-badge">Watch</div>
-        </div>
-        <div class="portfolio-item" data-video="https://www.youtube.com/watch?v=3JZ_D3ELwOQ">
-            <div class="portfolio-content">
-                <h3>🎥 Video Production</h3>
-                <p>High-quality video content from concept to final cut. Creating engaging visual stories that resonate with target audiences.</p>
-            </div>
-            <div class="watch-badge">Watch</div>
-        </div>
+<!-- Portfolio section removed by user request -->
 
-    
+    <!-- portfolio-container removed -->
+
+
+
+<!-- Clients & Work -->
+<section id="clients-work" aria-labelledby="clientsWorkTitle">
+  <div class="container">
+    <h2 id="clientsWorkTitle">CLIENTS & WORK</h2>
+    <p class="lead">Brands I’ve worked with & videos I’ve created</p>
+    <div class="clients-grid">
+      <article class="client-card" data-video="https://youtu.be/NuphuDonkBE?si=4OesuudXaNZmN0Q2">
+        <figure>
+          <img class="client-thumb" src="https://img.youtube.com/vi/NuphuDonkBE/hqdefault.jpg" alt="Social Campaigns thumbnail" loading="lazy">
+          <div class="client-overlay"></div>
+          <div class="play-btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+          </div>
+        </figure>
+        <div class="client-meta">
+          <h3 class="client-title">Brand One — Social Campaigns</h3>
+          <p class="client-desc">Concept to execution of social campaigns for brand awareness and growth.</p>
+        </div>
+      </article>
+
+      <article class="client-card" data-video="https://youtu.be/NuphuDonkBE?si=4OesuudXaNZmN0Q2">
+        <figure>
+          <img class="client-thumb" src="https://img.youtube.com/vi/NuphuDonkBE/hqdefault.jpg" alt="Video Production thumbnail" loading="lazy">
+          <div class="client-overlay"></div>
+          <div class="play-btn" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></div>
+        </figure>
+        <div class="client-meta">
+          <h3 class="client-title">🎥 Video Production</h3>
+          <p class="client-desc">High-quality video content from concept to final cut.</p>
+        </div>
+      </article>
+
+      <article class="client-card" data-video="https://youtu.be/NuphuDonkBE?si=4OesuudXaNZmN0Q2">
+        <figure>
+          <img class="client-thumb" src="https://img.youtube.com/vi/NuphuDonkBE/hqdefault.jpg" alt="Facebook share thumbnail (video preview)" loading="lazy">
+          <div class="client-overlay"></div>
+          <div class="play-btn" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></div>
+        </figure>
+        <div class="client-meta">
+          <h3 class="client-title">🔗 Facebook Share</h3>
+          <p class="client-desc">Shared campaign post showcasing reach and engagement.</p>
+        </div>
+      </article>
+
+      <article class="upload-card" aria-hidden="true">
+        <div style="font-size:48px;opacity:0.9">⬆️</div>
+        <p style="margin:12px 0 0;font-weight:700">Upload Your Video</p>
+        <small>Replace this card with your upload / CMS hook. <!-- CMS hook: data-upload-id, file input or API endpoint. --> </small>
+      </article>
+
     </div>
+  </div>
 </section>
 
 <!-- Floaters & Cursor (draggable floating elements + custom cursor) -->
@@ -984,36 +1044,45 @@
         requestAnimationFrame(animateSmoke);
       }
 
-      // Throttled spawn while dragging using pointer events
+      // Click → spawn a larger click-wave and a puff of smoke (no drag required)
       document.addEventListener('pointerdown', (e) => {
         if (e.buttons !== undefined && e.buttons !== 1) return; // only left button
-        isDragging = true;
-        spawnSmoke(e.clientX, e.clientY);
-        lastSmokeTime = performance.now();
-      });
+        const x = e.clientX, y = e.clientY;
+        // big click wave
+        try {
+          const clickWave = new Wave(x, y, { expansion: 2.6, maxRadius: 220, opacity: 1.0, lineBase: 2.4, hueShift: 18 });
+          if (waves.length > 120) waves.shift();
+          waves.push(clickWave);
+          // burst particles
+          const acc1 = getComputedStyle(document.documentElement).getPropertyValue('--hero-accent1-rgb').trim().split(',').map(v=>parseInt(v));
+          const acc2 = getComputedStyle(document.documentElement).getPropertyValue('--hero-accent2-rgb').trim().split(',').map(v=>parseInt(v));
+          for (let n=0;n<6 && particles.length < MAX_PARTICLES;n++) {
+            const mix = Math.random();
+            const pr = Math.round(acc1[0]*(1-mix) + acc2[0]*mix);
+            const pg = Math.round(acc1[1]*(1-mix) + acc2[1]*mix);
+            const pb = Math.round(acc1[2]*(1-mix) + acc2[2]*mix);
+            particles.push(new WaveParticle(x + (Math.random()-0.5)*18, y + (Math.random()-0.5)*18, pr,pg,pb));
+          }
+        } catch(err) { /* ignore if Wave not available */ }
 
-      document.addEventListener('pointermove', (e) => {
-        if (!isDragging) return;
-        const now = performance.now();
-        if (now - lastSmokeTime > SMOKE_THROTTLE) {
-          spawnSmoke(e.clientX, e.clientY);
-          lastSmokeTime = now;
+        // small smoke puff on click
+        if (performance && typeof spawnSmoke === 'function') {
+          spawnSmoke(x, y);
+          lastSmokeTime = performance.now();
         }
       });
 
-      function stopDrag(){ isDragging = false; }
-      document.addEventListener('pointerup', stopDrag);
-      document.addEventListener('pointercancel', stopDrag);
+      // remove drag-specific flags; pointerup/pointercancel handlers not required for click behavior now
+      // (they are intentionally omitted to simplify to normal pointer interactions)
 
       // touch fallback: pointer events cover touch, but ensure capture on touchstart
       document.addEventListener('touchstart', (e) => { if (e.touches && e.touches[0]) spawnSmoke(e.touches[0].clientX, e.touches[0].clientY); }, {passive:true});
       document.addEventListener('touchmove', (e) => { if (e.touches && e.touches[0]) { if (performance.now() - lastSmokeTime > SMOKE_THROTTLE) { spawnSmoke(e.touches[0].clientX, e.touches[0].clientY); lastSmokeTime = performance.now(); } } }, {passive:true});
 
-      // Light smoke follow on simple pointer move (not dragging), throttled
+      // Light smoke follow on normal pointer move (throttled)
       let lastLightTime = 0;
-      const LIGHT_THROTTLE = window.innerWidth <= 768 ? 120 : 45;
+      const LIGHT_THROTTLE = window.innerWidth <= 768 ? 140 : 45;
       document.addEventListener('pointermove', (e) => {
-        if (isDragging) return; // don't spawn light smoke while actively dragging (we have drag behavior)
         const now = performance.now();
         if (now - lastLightTime > LIGHT_THROTTLE) {
           spawnSmoke(e.clientX + (Math.random()-0.5)*8, e.clientY + (Math.random()-0.5)*8);
@@ -1115,15 +1184,17 @@
     function openVideoModal(src) {
       if (!src) return;
       // For YouTube links, convert to embed URL if needed
-      if (src.includes('youtube.com') || src.includes('youtu.be')) {
+      if (src.includes('youtube.com') || src.includes('youtu.be') || src.includes('vimeo.com')) {
         let id = '';
         if (src.includes('youtu.be/')) {
           id = src.split('youtu.be/')[1].split(/[?&]/)[0];
+          src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+        } else if (src.includes('vimeo.com')) {
+          id = src.split('vimeo.com/')[1].split(/[?&]/)[0];
+          src = `https://player.vimeo.com/video/${id}?autoplay=1`;
         } else {
           try { const url = new URL(src); id = url.searchParams.get('v'); } catch(e){/* ignore */}
-        }
-        if (id) {
-          src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+          if (id) src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
         }
         videoPlayer.style.display = 'block';
         videoPlayer.src = src;
@@ -1160,9 +1231,32 @@
       item.style.cursor = 'pointer';
       item.addEventListener('click', () => {
         const videoSrc = item.dataset.video || item.getAttribute('data-video') || '';
+        const link = item.dataset.link || item.getAttribute('data-link') || '';
         if (videoSrc) openVideoModal(videoSrc);
+        else if (link) window.open(link, '_blank', 'noopener');
       });
     });
+
+    // Clients grid interactions
+    document.querySelectorAll('#clients-work .client-card').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        const videoSrc = card.dataset.video || '';
+        const link = card.dataset.link || '';
+        if (videoSrc) openVideoModal(videoSrc);
+        else if (link) window.open(link, '_blank', 'noopener');
+      });
+    });
+
+    // GSAP reveal for clients section
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from('#clients-work .client-card', {
+        opacity: 0, y: 30, scale: 0.98, stagger: 0.08, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '#clients-work', start: 'top 85%' }
+      });
+      gsap.from('#clients-work h2', {opacity:0, y:10, duration:0.6, scrollTrigger:{trigger:'#clients-work', start:'top 95%'}});
+    }
 
     // close modal on overlay or close button
     document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeVideoModal));
